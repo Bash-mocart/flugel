@@ -115,8 +115,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const output = `
-          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
           #### Terraform Format  🖌\`${{ steps.format.outcome }}\`
           #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
           #### Terraform Infratest 🤖\`${{ steps.terratest.outcome }}\`
