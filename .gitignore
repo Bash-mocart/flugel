@@ -1,6 +1,7 @@
 #files not needed 
 *.jar
 *.tfvars
+*.mod
 
 # Local .terraform directories
 **/.terraform/*
