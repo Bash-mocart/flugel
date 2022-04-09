@@ -94,6 +94,10 @@ jobs:
       #   AWS_REGION: ${{ secrets.AWS_REGION }}
       #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+    - name: Terraform Plan Status
+      if: steps.plan.outcome == 'failure'
+      run: exit 1
+      
     # testing if the resources are properly tagged
     - name: Terraform terratest
       if: github.event_name == 'pull_request'
@@ -117,10 +121,8 @@ jobs:
       uses: actions/github-script@v6
       if: github.event_name == 'pull_request'
       env:
-        PLAN: "terraform\n${{ steps.plan.outputs }}"
-        FMT: "terraform\n${{ steps.format.outputs }}"
-        VAL: "terraform\n${{ steps.validate.outputs }}"
-        TEST: "terraform\n${{ steps.terratest.outputs }}"
+        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+      
 
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -133,28 +135,12 @@ jobs:
       
           <details><summary>Show Plan Changes</summary>
           
-          \`\`\`${{env.PLAN}}\`\`\`
+          \`\`\`\n
+          ${process.env.PLAN}\`\`\`
           
           </details>
 
-          <details><summary>Show Format</summary>
-          
-          \`\`\`${{env.FMT}}\`\`\`
-          
-          </details>
-          
-
-          <details><summary>Show Validation</summary>
-          
-          \`\`\`${{env.VAL}}\`\`\`
-          
-          </details>
-
-          <details><summary>Show Infratesting</summary>
-          
-          \`\`\`${{env.TEST}}\`\`\`
-          
-          </details>
+      
           
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
             
