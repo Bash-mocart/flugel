@@ -15,4 +15,9 @@ resource "aws_instance" "flugel_instance" {
     device_index         = 0
   }
 
+  tags = {
+    Name = "Flugel" 
+    Owner ="InfraTeam"
+  }
+
 }
