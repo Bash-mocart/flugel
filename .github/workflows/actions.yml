@@ -78,6 +78,7 @@ jobs:
       id: format
       run: terraform fmt -check
 
+    # validating the terraform code for any syntax error
     - name: Terraform validate
       id: validate
       run: terraform validate 
@@ -98,8 +99,8 @@ jobs:
                  go mod init github.com/Bash-mocart/terratestV1
                  go test -v
       
-    # Add a comment to pull requests with plan results
-    - name: add-plan-comment
+    # Add a comment to pull requests with results
+    - name: add-results-comment
       id: comment
       uses: actions/github-script@v6
       if: github.event_name == 'pull_request'
