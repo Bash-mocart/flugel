@@ -1,5 +1,5 @@
 resource "aws_network_interface" "instance_network_attach" {
-  subnet_id   = aws_subnet.public.id
+  subnet_id = aws_subnet.public.id
 
   tags = {
     Name = "primary_network_interface"
@@ -16,8 +16,8 @@ resource "aws_instance" "flugel_instance" {
   }
 
   tags = {
-    Name = "Flugel" 
-    Owner ="InfraTeam"
+    Name  = "Flugel"
+    Owner = "InfraTeam"
   }
 
 }

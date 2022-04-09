@@ -13,6 +13,6 @@ resource "aws_subnet" "public" {
 
   # A map of tags to assign to the resource.
   tags = {
-    Name                        = "Public subnet"
+    Name = "Public subnet"
   }
 }
