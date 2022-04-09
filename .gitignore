@@ -2,6 +2,7 @@
 *.jar
 *.tfvars
 *.mod
+*.sum
 
 # Local .terraform directories
 **/.terraform/*
