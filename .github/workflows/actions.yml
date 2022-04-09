@@ -117,10 +117,10 @@ jobs:
       uses: actions/github-script@v6
       if: github.event_name == 'pull_request'
       env:
-        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-        FMT: "terraform\n${{ steps.format.outputs.stdout }}"
-        VAL: "terraform\n${{ steps.validate.outputs.stdout }}"
-        TEST: "terraform\n${{ steps.terratest.outputs.stdout }}"
+        PLAN: "terraform\n${{ steps.plan.outputs }}"
+        FMT: "terraform\n${{ steps.format.outputs }}"
+        VAL: "terraform\n${{ steps.validate.outputs }}"
+        TEST: "terraform\n${{ steps.terratest.outputs }}"
 
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
