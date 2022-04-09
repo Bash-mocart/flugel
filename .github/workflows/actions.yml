@@ -87,7 +87,7 @@ jobs:
     - name: Terraform Plan
       if: github.event_name == 'pull_request'
       id: plan
-      run: terraform plan -no-color
+      run: terraform plan -no-color -out=plan.out
 
     # testing if the resources are properly tagged
     - name: Terraform terratest
@@ -107,7 +107,7 @@ jobs:
       uses: actions/github-script@v6
       if: github.event_name == 'pull_request'
       env:
-        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        PLAN: $(cat plan.out)
         FMT: "terraform\n${{ steps.format.outputs.stdout }}"
         VAL: "terraform\n${{ steps.validate.outputs.stdout }}"
         TEST: "terraform\n${{ steps.terratest.outputs.stdout }}"
