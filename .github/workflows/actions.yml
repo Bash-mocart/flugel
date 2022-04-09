@@ -89,7 +89,7 @@ jobs:
     
     - name: Setting up Terraform terratest
       run: |
-            go mod init
+            go mod init github.com/Bash-mocart/terratestV1
             go test -v
              
 
