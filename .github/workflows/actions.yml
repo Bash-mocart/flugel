@@ -123,26 +123,26 @@ jobs:
       
           <details><summary>Show Plan Changes</summary>
           
-          \`\`\`${process.env.PLAN}\`\`\`
+          \`\`\`${PLAN}\`\`\`
           
           </details>
 
           <details><summary>Show Format</summary>
           
-          \`\`\`${process.env.FMT}\`\`\`
+          \`\`\`${FMT}\`\`\`
           
           </details>
           
 
           <details><summary>Show Validation</summary>
           
-          \`\`\`${process.env.VAL}\`\`\`
+          \`\`\`${VAL}\`\`\`
           
           </details>
 
           <details><summary>Show Infratesting</summary>
           
-          \`\`\`${process.env.TEST}\`\`\`
+          \`\`\`${TEST}\`\`\`
           
           </details>
           
