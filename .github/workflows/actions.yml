@@ -97,7 +97,7 @@ jobs:
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
       run: exit 1
-      
+
     # testing if the resources are properly tagged
     - name: Terraform terratest
       if: github.event_name == 'pull_request'
@@ -136,7 +136,8 @@ jobs:
           <details><summary>Show Plan Changes</summary>
           
           \`\`\`\n
-          ${process.env.PLAN}\`\`\`
+          ${process.env.PLAN}
+          \`\`\`
           
           </details>
 
