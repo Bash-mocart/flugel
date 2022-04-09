@@ -123,26 +123,26 @@ jobs:
       
           <details><summary>Show Plan Changes</summary>
           
-          \`\`\`${PLAN}\`\`\`
+          \`\`\`${{env.PLAN}}\`\`\`
           
           </details>
 
           <details><summary>Show Format</summary>
           
-          \`\`\`${FMT}\`\`\`
+          \`\`\`${{env.FMT}}\`\`\`
           
           </details>
           
 
           <details><summary>Show Validation</summary>
           
-          \`\`\`${VAL}\`\`\`
+          \`\`\`${{env.VAL}}\`\`\`
           
           </details>
 
           <details><summary>Show Infratesting</summary>
           
-          \`\`\`${TEST}\`\`\`
+          \`\`\`${{env.TEST}}\`\`\`
           
           </details>
           
