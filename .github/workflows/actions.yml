@@ -86,9 +86,7 @@ jobs:
     # testing if the resources are properly tagged
     - name: Terraform terratest
       uses: actions/setup-go@v3
-      run: | 
-            go mod init
-            go test -v
+      run: go mod init
              
 
       # On push to main, build or change infrastructure according to Terraform configuration files
