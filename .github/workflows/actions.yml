@@ -93,11 +93,13 @@ jobs:
     - name: Terraform terratest
       if: github.event_name == 'pull_request'
       uses: actions/setup-go@v3
-      id: terratest
-      with:
-        script: |
-                 go mod init github.com/Bash-mocart/terratestV1
-                 go test -v
+
+    - name: Infra Testing
+      if: github.event_name == 'pull_request'
+      id: terratest 
+      run: |
+        go mod init github.com/Bash-mocart/terratestV1
+        go test -v
       
     # Add a comment to pull requests with results
     - name: add-results-comment
