@@ -10,7 +10,7 @@
 ## Requirements
 * GoLang installed on your machine
 
-## Steps 
+## Steps to run and test the automation (Terratest)
 
 1. Clone the repo
 2. In your terminal, run `go init mod flugel` (flugel can be any name)
