@@ -36,7 +36,7 @@ resource "aws_subnet" "my_subnet" {
 
   # A map of tags to assign to the resource.
   tags = {
-    Name                        = "public-eu-west-3b"
+    Name                        = "public-us-east-1a"
     "kubernetes.io/cluster/eks" = "shared"
     "kubernetes.io/role/elb"    = 1
   }
