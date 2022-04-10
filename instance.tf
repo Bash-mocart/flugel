@@ -1,5 +1,5 @@
 resource "aws_network_interface" "eni" {
-  subnet_id   = aws_subnet.my_subnet.id
+  subnet_id = aws_subnet.my_subnet.id
 
   tags = {
     Name = "primary_network_interface"
