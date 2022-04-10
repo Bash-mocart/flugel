@@ -7,8 +7,8 @@ resource "aws_network_interface" "instance_network_attach" {
 }
 
 resource "aws_instance" "flugel_instance" {
-  ami           = "ami-04505e74c0741db8d" # us-east-1
-  instance_type = "t2.micro"
+  ami           = var.ami # us-east-1
+  instance_type = var.instance_type
 
   network_interface {
     network_interface_id = aws_network_interface.instance_network_attach.id
