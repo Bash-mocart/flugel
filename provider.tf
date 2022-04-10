@@ -1,3 +1,4 @@
+# aws credentials set up in terraform workspace env variables
 provider "aws" {
 
 }
@@ -10,7 +11,7 @@ terraform {
       version = "4.4.0"
     }
   }
-
+  # using terraform cloud as backend 
   backend "remote" {
     #          The name of your Terraform Cloud organization.
     organization = "flugel-infra"

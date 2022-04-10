@@ -1,3 +1,4 @@
+# EC2 instance network interface placed in a subnet
 resource "aws_network_interface" "eni" {
   subnet_id = aws_subnet.my_subnet.id
 
