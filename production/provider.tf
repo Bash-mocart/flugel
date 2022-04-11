@@ -23,10 +23,6 @@ terraform {
   }
 }
 
-module "vpc" {
-  source   = "../modules/vpc/"
-  vpc_name = "vpc"
-}
 
 module "eks" {
   source = "../modules/eks/"
