@@ -18,9 +18,14 @@ terraform {
     #
     #         # The name of the Terraform Cloud workspace to store Terraform state files in.
     workspaces {
-      name = "flugel-staging"
+      name = "flugel"
     }
   }
+}
+
+module "vpc" {
+  source   = "../modules/vpc/"
+  vpc_name = "vpc"
 }
 
 module "eks" {

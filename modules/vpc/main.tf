@@ -22,7 +22,7 @@ resource "aws_vpc" "my_vpc" {
 
 
   tags = {
-    Name = "vpc"
+    Name = var.vpc_name
   }
 }
 
@@ -36,16 +36,16 @@ resource "aws_subnet" "my_subnet" {
 
   # A map of tags to assign to the resource.
   tags = {
-    Name                        = "public-us-east-1a"
+    Name                           = "public-us-east-1a"
     "kubernetes.io/cluster/flugel" = "shared"
-    "kubernetes.io/role/elb"    = 1
+    "kubernetes.io/role/elb"       = 1
   }
 }
 
 
 resource "aws_subnet" "my_subnet_b" {
   vpc_id            = aws_vpc.my_vpc.id
-  cidr_block        = var.public_subnet_cidr_block
+  cidr_block        = var.public_subnet_b_cidr_block
   availability_zone = "us-east-1b"
 
   # Required for EKS. Instances launched into the subnet should be assigned a public IP address.
@@ -53,8 +53,22 @@ resource "aws_subnet" "my_subnet_b" {
 
   # A map of tags to assign to the resource.
   tags = {
-    Name                        = "public-us-east-1b"
+    Name                           = "public-us-east-1b"
     "kubernetes.io/cluster/flugel" = "shared"
-    "kubernetes.io/role/elb"    = 1
+    "kubernetes.io/role/elb"       = 1
   }
 }
+resource "aws_internet_gateway" "igw" {
+  # The VPC ID to create in.
+  vpc_id = aws_vpc.my_vpc.id
+
+  # A map of tags to assign to the resource.
+  tags = {
+    Name = "igw"
+  }
+}
+
+
+
+
+

@@ -1,3 +1,9 @@
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==MYBOUNDARY=="
+
+--==MYBOUNDARY==
+Content-Type: text/x-shellscript; charset="us-ascii"
+
 #!/bin/bash
 mkdir -p static/file/html && cd $_
 
@@ -26,3 +32,4 @@ f.close()
 
 EOF
 
+--==MYBOUNDARY==--
