@@ -14,14 +14,14 @@ variable "instance_type" {
 }
 
 variable "eks_cluster" {
-  type = string
+  type    = string
   default = "flugel"
-  
+
 }
 
 variable "eks_version" {
-  type = string
-  default = "1.20" 
+  type    = string
+  default = "1.20"
 }
 
 variable "eks_ami_type" {
