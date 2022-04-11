@@ -76,12 +76,16 @@ jobs:
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       id: format
-      run: terraform fmt -check -chdir=./staging
+      run: |
+        cd ./staging
+        terraform fmt -check 
 
     # validating the terraform code for any syntax error
     - name: Terraform validate
       id: validate
-      run: terraform validate -chdir=./staging
+      run: |
+          cd ./staging
+          terraform validate 
 
 
     # Generates an execution plan for Terraform
