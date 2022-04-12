@@ -18,8 +18,12 @@ resource "aws_network_interface" "eni2" {
 }
 
 resource "aws_instance" "flugel_instance" {
-  ami           = var.ami # us-east-1
-  instance_type = var.instance_type
+ # us-east-1
+  # instance_type = var.instance_type
+  launch_template {
+    id      = aws_launch_template.nginx_launch.id
+    version = aws_launch_template.nginx_launch.latest_version
+  }
 
   
 
@@ -35,10 +39,14 @@ resource "aws_instance" "flugel_instance" {
 }
 
   resource "aws_instance" "flugel_instance2" {
-  ami           = var.ami # us-east-1
-  instance_type = var.instance_type
+   # us-east-1
+  # instance_type = var.instance_type
  
-  
+  launch_template {
+    id      = aws_launch_template.nginx_launch.id
+    version = aws_launch_template.nginx_launch.latest_version
+  }
+
 
   network_interface {
     network_interface_id = aws_network_interface.eni2.id
