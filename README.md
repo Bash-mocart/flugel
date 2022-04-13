@@ -24,7 +24,7 @@
  For CI/CD, I set up Github Actions that formats, validates and test(using terratest) my Infrastructure. It also plan when a pull requests is created and deploy the infra when a pull request is merged. Seeing I already have an infrastructure in production from my previously merged pull request, I created a staging terraform workspace and a production terraform workspace using terraform cloud. The production workspace can only get triggered from this repository based on merge requests, just to make sure the Github Actions workflow must passed before deployment so as not to break anything in production and manage my terraform state intact.  
 
 ## Infra Chart
-![infra_chart](https://github.com/Bash-mocart/flugel/blob/main/flugel%20chart.png)  
+![infra_chart](https://github.com/Bash-mocart/flugel/blob/ec2/flugel.png)  
 
 ## Requirements
 * GoLang installed on your machine
