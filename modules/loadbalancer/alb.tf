@@ -1,16 +1,12 @@
-module "networking" {
-  source   = "../networking"
-  environment = var.environment
-}
 
 resource "aws_lb" "test" {
   name               = "flugel-nginx-alb-${var.environment}"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [module.networking.sg_allow_8080]
+  security_groups    = [var.sg_allow_8080]
   subnets            = [
-     module.networking.subnet_id,
-     module.networking.subnet_b_id
+     var.subnet_id,
+     var.subnet_b_id
   ]
 
   enable_deletion_protection = false
@@ -37,6 +33,6 @@ resource "aws_lb_target_group" "instance_target" {
   name     = "routing-requests-${var.environment}"
   port     = 8080
   protocol = "HTTP"
-  vpc_id   = module.networking.vpc_id
+  vpc_id   = var.vpc_id
 }
 

@@ -15,7 +15,7 @@ terraform {
   backend "remote" {
     #          The name of your Terraform Cloud organization.
     organization = "flugel-infra"
-    #
+    
     #         # The name of the Terraform Cloud workspace to store Terraform state files in.
     workspaces {
       name = "flugel"
@@ -25,6 +25,30 @@ terraform {
 
 
 module "autoscaling" {
-  source = "../modules/autoscaling/"
-  environment = "production"
+  source                  = "../modules/autoscaling/"
+  environment             = "staging"
+  subnet_id               = module.networking.subnet_id
+  subnet_b_id             = module.networking.subnet_b_id
+  aws_lb_target_group_arn = module.loadbalancer.alb-target_group_arn
+  sg_allow_8080           = module.networking.sg_allow_8080
+}
+
+module "loadbalancer" {
+  source        = "../modules/loadbalancer/"
+  environment   = "staging"
+  sg_allow_8080 = module.networking.sg_allow_8080
+  subnet_id     = module.networking.subnet_id
+  subnet_b_id   = module.networking.subnet_b_id
+  vpc_id        = module.networking.vpc_id
+
+}
+
+module "networking" {
+  source      = "../modules/networking/"
+  environment = "staging"
+
+}
+
+output "alb_dns" {
+  value = module.loadbalancer.alb-dns
 }

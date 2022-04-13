@@ -1,12 +1,3 @@
-module "networking" {
-  source   = "../networking"
-  environment = var.environment
-}
-
-module "loadbalancer" {
-  source   = "../loadbalancer"
-  environment = var.environment
-}
 
 resource "aws_autoscaling_group" "flugel_autoscaling" {
   desired_capacity   = 2
@@ -19,8 +10,8 @@ resource "aws_autoscaling_group" "flugel_autoscaling" {
     version = aws_launch_template.nginx_launch.latest_version
   }
 
-    vpc_zone_identifier  = [ module.networking.subnet_id,
-     module.networking.subnet_b_id
+    vpc_zone_identifier  = [ var.subnet_id,
+        var.subnet_b_id
      ]
     lifecycle {
         ignore_changes = [load_balancers, target_group_arns]
@@ -49,7 +40,7 @@ resource "aws_autoscaling_group" "flugel_autoscaling" {
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   autoscaling_group_name = aws_autoscaling_group.flugel_autoscaling.id
-  lb_target_group_arn    = module.loadbalancer.alb-target_group_arn
+  lb_target_group_arn    = var.aws_lb_target_group_arn
 }
 
 

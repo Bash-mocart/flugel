@@ -16,3 +16,25 @@ variable "instance_type" {
 variable "environment" {
   type    = string
 }
+
+variable "subnet_id" {
+    type = string
+  
+}
+
+variable "subnet_b_id" {
+    type = string
+  
+}
+
+variable "aws_lb_target_group_arn" {
+    type = string
+  
+}
+
+variable "sg_allow_8080" {
+    type = string
+  
+}
+
+
