@@ -13,3 +13,7 @@ output "vpc_id" {
 output "sg_allow_8080" {
   value = aws_security_group.allow_8080.id
 }
+# outputting s3 tags
+output "s3_tags" {
+  value = aws_s3_bucket.flugel_s3.tags
+}

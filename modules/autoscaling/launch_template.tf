@@ -1,4 +1,4 @@
-# Launch template for the worker nodes
+# Launch template for the autoscaling group
 resource "aws_launch_template" "nginx_launch" {
   name = "nginx-${var.environment}"
 

@@ -1,4 +1,4 @@
-
+# aws_lb for nginx app access 
 resource "aws_lb" "test" {
   name               = "flugel-nginx-alb-${var.environment}"
   internal           = false
@@ -16,7 +16,7 @@ resource "aws_lb" "test" {
     Environment = "alb-${var.environment}"
   }
 }
-
+# listener for the alb
 resource "aws_lb_listener" "alb-listener-80" {
   load_balancer_arn = aws_lb.test.arn
   port              = "8080"
@@ -28,7 +28,7 @@ resource "aws_lb_listener" "alb-listener-80" {
   }
 }
 
-
+# target group for the alb
 resource "aws_lb_target_group" "instance_target" {
   name     = "routing-requests-${var.environment}"
   port     = 8080

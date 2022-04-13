@@ -6,6 +6,7 @@ Content-Type: text/x-shellscript; charset="us-ascii"
 
 #!/bin/bash
 sudo mkdir html && cd $_
+# creating a static file with py script that will be served by nginx as a static file
 python3 - << EOF
 f = open('index.html', 'w')
   
@@ -33,6 +34,7 @@ f.close()
 
 EOF
 
+# installing docker 
 sudo apt-get update
 sudo apt-get install \
     ca-certificates \
@@ -46,6 +48,7 @@ echo \
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
+# running docker and mounting py script for nginx to serve as a static file
 sudo docker run --name flugel -v /html:/usr/share/nginx/html:ro  -d -p 8080:80 nginx:latest
 4eaf77e3019b16d3dc54f2dc1c76331fbbe6b067426769c66573a9c001bd8232
 

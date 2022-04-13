@@ -24,6 +24,7 @@ terraform {
 }
 
 
+# autoscaling module containing launch template, autoscaling group, autoscaling group attachment to the alb
 module "autoscaling" {
   source                  = "../modules/autoscaling/"
   environment             = "staging"
@@ -32,7 +33,7 @@ module "autoscaling" {
   aws_lb_target_group_arn = module.loadbalancer.alb-target_group_arn
   sg_allow_8080           = module.networking.sg_allow_8080
 }
-
+# load balancer  module containing alb, alb listener, alb listener rule, target group
 module "loadbalancer" {
   source        = "../modules/loadbalancer/"
   environment   = "staging"
@@ -42,13 +43,17 @@ module "loadbalancer" {
   vpc_id        = module.networking.vpc_id
 
 }
-
+# networking module containing vpc, 2 public subnets, s3 bucket, security groups, routing tables, internet gateway
 module "networking" {
   source      = "../modules/networking/"
   environment = "staging"
 
 }
-
+# outputting alb dns hostname 
 output "alb_dns" {
   value = module.loadbalancer.alb-dns
+}
+# outputting instances_tags
+output "instances_tags" {
+  value = module.autoscaling.instances_tags
 }

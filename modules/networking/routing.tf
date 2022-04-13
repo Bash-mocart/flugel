@@ -1,3 +1,4 @@
+
 resource "aws_route_table" "public" {
   # The VPC ID.
   vpc_id = aws_vpc.my_vpc.id

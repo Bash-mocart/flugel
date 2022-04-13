@@ -1,3 +1,4 @@
+# allows 8080 inbound traffic 
 resource "aws_security_group" "allow_8080" {
   name        = "allow-8080-${var.environment}"
   description = "Allow inbound traffic on port 8080"
@@ -20,7 +21,7 @@ resource "aws_security_group_rule" "allow_inbound_8080" {
   to_port                  = 8080
   type                     = "ingress"
 }
-
+# outbound traffic
 resource "aws_security_group_rule" "outgoing" {
   description              = "Allow all outgoing"
   from_port                = 0
