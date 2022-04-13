@@ -24,10 +24,12 @@ func TestTerraformInfraTest(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 	//saving terraform outputs in variables
 	s3_output := terraform.Output(t, terraformOptions, "s3_tags")
-	// instance_tag_output := terraform.Output(t, terraformOptions, "instance_tags")
+	instance_tag_output := terraform.Output(t, terraformOptions, "instance_tags")
+
+	fmt.Print(instance_tag_output)
 	//checking the resources are properly tagged
 	assert.Equal(t, "map[Name:Flugel Owner:InfraTeam]", s3_output)
-	// assert.Equal(t, "map[Name:Flugel Owner:InfraTeam]", instance_tag_output)
+	assert.Equal(t, "[map[key:Name propagate_at_launch:true value:Flugel] map[key:Owner propagate_at_launch:true value:InfraTeam] map[key:environment propagate_at_launch:true value:autoscaling-staging]]", instance_tag_output)
 	// saving alb dns output
 	albIp := terraform.Output(t, terraformOptions, "alb_dns")
 	// saving the url for the static file

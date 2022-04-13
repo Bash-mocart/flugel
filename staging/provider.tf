@@ -53,7 +53,7 @@ output "alb_dns" {
   value = module.loadbalancer.alb-dns
 }
 # outputting instances_tags
-output "instances_tags" {
+output "instance_tags" {
   value = module.autoscaling.instances_tags
 }
 
