@@ -12,7 +12,7 @@ resource "aws_route_table" "public" {
 
   # A map of tags to assign to the resource.
   tags = {
-    Name = "public"
+    Name = "public-${var.environment}"
   }
 }
 

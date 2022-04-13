@@ -1,5 +1,5 @@
 resource "aws_security_group" "allow_8080" {
-  name        = "allow-8080"
+  name        = "allow-8080-${var.environment}"
   description = "Allow inbound traffic on port 8080"
   vpc_id      = aws_vpc.my_vpc.id
 
