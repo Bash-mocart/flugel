@@ -1,9 +1,10 @@
 package test
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 	"time"
+
 	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
@@ -25,10 +26,10 @@ func TestTerraformInfraTest(t *testing.T) {
 	// checking the resources are properly tagged
 	assert.Equal(t, "map[Name:Flugel Owner:InfraTeam]", s3_output)
 	assert.Equal(t, "map[Name:Flugel Owner:InfraTeam]", instance_tag_output)
-
-	albIp:= (t, terraformOptions, "")
-
-	url:= fmt.Sprintf("http:/%s:8080", albIp)
-
+	// saving alb dns output
+	albIp := terraform.Output(t, terraformOptions, "alb-dns")
+	// saving the url
+	url := fmt.Sprintf("http:/%s:8080/index.html", albIp)
+	// curling the dns endpoint
 	http_helper.HttpGetWithRetry(t, url, nil, 200, "Name:Flugel", 30, 5*time.Second)
 }

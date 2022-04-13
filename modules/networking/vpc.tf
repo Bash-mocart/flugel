@@ -13,7 +13,7 @@ resource "aws_vpc" "my_vpc" {
 
 
   tags = {
-    Name = "vpc"
+    Name = "vpc-$(var.environment)"
   }
 }
 
@@ -27,7 +27,7 @@ resource "aws_subnet" "my_subnet" {
 
   # A map of tags to assign to the resource.
   tags = {
-    Name                           = "public-us-east-1a"
+    Name                           = "public-us-east-1a${var.environment}"
   }
 }
 
@@ -42,9 +42,7 @@ resource "aws_subnet" "my_subnet_b" {
 
   # A map of tags to assign to the resource.
   tags = {
-    Name                           = "public-us-east-1b"
-    "kubernetes.io/cluster/flugel" = "shared"
-    "kubernetes.io/role/elb"       = 1
+    Name                           = "public-us-east-1b-${var.environment}"
   }
 }
 resource "aws_internet_gateway" "igw" {
@@ -53,7 +51,7 @@ resource "aws_internet_gateway" "igw" {
 
   # A map of tags to assign to the resource.
   tags = {
-    Name = "igw"
+    Name = "igw-${var.environment}"
   }
 }
 

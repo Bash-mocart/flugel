@@ -3,21 +3,6 @@ provider "aws" {
 
 }
 
-locals {
-  env = terraform.workspace
-
-  disk_size_gb = {
-    dev  = 50
-    prod = 100
-  }
-
-  machine_type = {
-    dev  = "e2-standard-2"
-    prod = "e2-medium"
-  }
-...
-}
-
 
 terraform {
   required_providers {
@@ -33,7 +18,13 @@ terraform {
     #
     #         # The name of the Terraform Cloud workspace to store Terraform state files in.
     workspaces {
-      name = "flugel-staging-ec2"
+      name = "flugel"
     }
   }
+}
+
+
+module "autoscaling" {
+  source = "../modules/autoscaling/"
+  environment = "production"
 }

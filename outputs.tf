@@ -12,20 +12,20 @@
 #   sensitive = false
 # }
 
-output "instanceA-ip" {
-  value       = aws_instance.flugel_instance2.public_ip
-  description = "s3 bucket tags"
-  # Setting an output value as sensitive prevents Terraform from showing its value in plan and apply.
-  sensitive = false
-}
+# output "instanceA-ip" {
+#   value       = aws_instance.flugel_instance2.public_ip
+#   description = "s3 bucket tags"
+#   # Setting an output value as sensitive prevents Terraform from showing its value in plan and apply.
+#   sensitive = false
+# }
 
 
-output "instanceB-ip" {
-  value       = aws_instance.flugel_instance.public_ip
-  description = "s3 bucket tags"
-  # Setting an output value as sensitive prevents Terraform from showing its value in plan and apply.
-  sensitive = false
-}
+# output "instanceB-ip" {
+#   value       = aws_instance.flugel_instance.public_ip
+#   description = "s3 bucket tags"
+#   # Setting an output value as sensitive prevents Terraform from showing its value in plan and apply.
+#   sensitive = false
+# }
 
 output "alb-dns" {
   value       = aws_lb.test.dns_name
