@@ -115,7 +115,7 @@ jobs:
     - name: Terraform Plan
       if: github.event_name == 'pull_request'
       id: plan
-      run: terraform plan -chdir=./production -no-color 
+      run: terraform -chdir=./production plan-no-color 
 
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
