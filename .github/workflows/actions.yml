@@ -106,7 +106,6 @@ jobs:
       if: github.event_name == 'pull_request'
       id: terratest 
       run: |
-        cd staging
         go mod init github.com/Bash-mocart/terratestV1
         go test -v
       
