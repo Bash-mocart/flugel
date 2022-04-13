@@ -74,7 +74,6 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-       # terraform_wrapper: false
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -97,19 +96,6 @@ jobs:
           terraform -chdir=./production validate 
           terraform -chdir=./staging validate 
     
-    - name: Terraform terratest
-      if: github.event_name == 'pull_request'
-      uses: actions/setup-go@v3
-      
-
-    - name: Infra Testing
-      if: github.event_name == 'pull_request'
-      id: terratest 
-      run: |
-        go mod init github.com/Bash-mocart/terratestV1
-        go test -v
-      
-
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
@@ -120,8 +106,6 @@ jobs:
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
       run: exit 1
-
-    # testing if the resources are properly tagged
     
     # Add a comment to pull requests with results
     - name: add-results-comment
@@ -165,3 +149,41 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform -chdir=./production apply -auto-approve
+      
+  terratest:
+    name: 'Terratest'
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+    
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_wrapper: false ## setting it false because it gives terratest assertion, problem
+  
+
+    - name: Terraform terratest
+      if: github.event_name == 'pull_request'
+      uses: actions/setup-go@v3
+      
+  # testing if the resources are properly tagged
+    - name: Infra Testing
+      if: github.event_name == 'pull_request'
+      id: terratest 
+      run: |
+        go mod init github.com/Bash-mocart/terratestV1
+        go test -v
+      
+    
+    
+    
