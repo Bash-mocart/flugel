@@ -13,7 +13,7 @@
 ## Steps to run and test the automation (Terratest)
 
 1. Clone the repo
-2. In your terminal, run `go init mod flugel` (flugel can be any name)
+2. In your terminal, run `go mod init flugel` (flugel can be any name)
 3. Next, run `go test -v`
 
 Check the logs for the test results
