@@ -121,6 +121,7 @@ jobs:
       #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         go mod init github.com/Bash-mocart/terratestV1
+        go mod tidy -go=1.16 && go mod tidy -go=1.17
         go test -v
       
     # Add a comment to pull requests with results
