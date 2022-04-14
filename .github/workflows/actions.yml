@@ -114,23 +114,7 @@ jobs:
       if: steps.plan.outcome == 'failure'
       run: exit 1
 
-    
 
-
-    # testing if the resources are properly tagged
-    - name: Terraform terratest
-      if: github.event_name == 'pull_request'
-      uses: actions/setup-go@v3
-      
-
-    - name: Infra Testing
-      if: github.event_name == 'pull_request'
-      id: terratest 
-
-      run: |
-        go mod init github.com/Bash-mocart/terratestV1
-        go mod tidy -go=1.16 && go mod tidy -go=1.17
-        go test -v
 
     # Add a comment to pull requests with results
     - name: add-results-comment
