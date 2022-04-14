@@ -9,7 +9,6 @@ resource "aws_autoscaling_group" "flugel_autoscaling" {
     id      = aws_launch_template.nginx_launch.id
     version = aws_launch_template.nginx_launch.latest_version
   }
-
     vpc_zone_identifier  = [ var.subnet_id,
         var.subnet_b_id
      ]
@@ -17,20 +16,16 @@ resource "aws_autoscaling_group" "flugel_autoscaling" {
     lifecycle {
         ignore_changes = [load_balancers, target_group_arns]
     }
-
-  
     tag {
         key                = "Name"
         value              = "Flugel"
         propagate_at_launch = true
   }
-
      tag {
         key                = "Owner"
         value              = "InfraTeam"
         propagate_at_launch = true
   }
-
    tag {
         key                = "environment"
         value              = "autoscaling-${var.environment}"
