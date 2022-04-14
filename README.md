@@ -28,6 +28,8 @@ There are two branches, Main branch contains the EKS Cluster which is not needed
 
 ## Static File in the Nginx EC2 instance
 
+![static file](https://github.com/Bash-mocart/flugel/blob/ec2/staticfile.png)  
+
 
 ## Infra Chart
 ![infra_chart](https://github.com/Bash-mocart/flugel/blob/ec2/flugel.png)  
