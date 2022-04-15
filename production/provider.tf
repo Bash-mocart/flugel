@@ -27,7 +27,7 @@ terraform {
 # autoscaling module containing launch template, autoscaling group, autoscaling group attachment to the alb
 module "autoscaling" {
   source                  = "../modules/autoscaling/"
-  environment             = "staging"
+  environment             = "production"
   subnet_id               = module.networking.subnet_id
   subnet_b_id             = module.networking.subnet_b_id
   aws_lb_target_group_arn = module.loadbalancer.alb-target_group_arn
@@ -36,7 +36,7 @@ module "autoscaling" {
 # load balancer  module containing alb, alb listener, alb listener rule, target group
 module "loadbalancer" {
   source        = "../modules/loadbalancer/"
-  environment   = "staging"
+  environment   = "production"
   sg_allow_8080 = module.networking.sg_allow_8080
   subnet_id     = module.networking.subnet_id
   subnet_b_id   = module.networking.subnet_b_id
@@ -46,7 +46,7 @@ module "loadbalancer" {
 # networking module containing vpc, 2 public subnets, s3 bucket, security groups, routing tables, internet gateway
 module "networking" {
   source      = "../modules/networking/"
-  environment = "staging"
+  environment = "production"
 
 }
 # outputting alb dns hostname 
