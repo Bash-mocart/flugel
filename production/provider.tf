@@ -25,7 +25,6 @@ terraform {
 
 module "flugel" {
   source                  = "../modules/flugel/"
-  environment             = "production"
 }
 
 output "instance_tags" {
