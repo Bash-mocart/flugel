@@ -56,4 +56,3 @@ output "alb_dns" {
 # outputting instances_tags
 output "instances_tags" {
   value = module.autoscaling.instances_tags
-}

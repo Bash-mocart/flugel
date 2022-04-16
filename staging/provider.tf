@@ -61,4 +61,3 @@ output "s3_tags" {
   value = module.networking.s3_tags
 }
 
-
