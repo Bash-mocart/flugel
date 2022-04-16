@@ -32,5 +32,5 @@ output "instance_tags" {
 }
 
 output "s3_tags" {
-  value = module.networking.s3_tag
+  value = module.flugel.s3_tag
 }
