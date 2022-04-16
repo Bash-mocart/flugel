@@ -44,7 +44,11 @@
 
 name: 'Terraform'
 
-on: [push, pull_request]
+on: 
+  push:
+    branches:
+      - test 
+  pull_request:
 
 jobs:
   terraform:
@@ -60,7 +64,7 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
-
+    
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -68,62 +72,47 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION}}
 
+
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-        terraform_wrapper: false
-      
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       id: init
-      run: terraform init
+      run: |
+            terraform -chdir=./production init
+            terraform -chdir=./staging init
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       id: format
-      run: terraform fmt -check
+      run: |
+            terraform -chdir=./production fmt
+            terraform -chdir=./staging fmt
 
     # validating the terraform code for any syntax error
     - name: Terraform validate
       id: validate
-      run: terraform validate 
-
+      run: |
+          terraform -chdir=./production validate 
+          terraform -chdir=./staging validate 
+    
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       if: github.event_name == 'pull_request'
       id: plan
-      run: terraform plan -no-color 
-      # env:
-      #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #   AWS_REGION: ${{ secrets.AWS_REGION }}
-      #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: terraform -chdir=./production plan -no-color 
 
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
       run: exit 1
 
-    # testing if the resources are properly tagged
-    - name: Terraform terratest
-      if: github.event_name == 'pull_request'
-      uses: actions/setup-go@v3
-      
 
-    - name: Infra Testing
-      if: github.event_name == 'pull_request'
-      id: terratest 
-      # env:
-      #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #   AWS_REGION: ${{ secrets.AWS_REGION }}
-      #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: |
-        go mod init github.com/Bash-mocart/terratestV1
-        go mod tidy -go=1.16 && go mod tidy -go=1.17
-        go test -v
-      
+
     # Add a comment to pull requests with results
     - name: add-results-comment
       id: comment
@@ -164,9 +153,44 @@ jobs:
       # On push to main, build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      # env:
-      #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #   AWS_REGION: ${{ secrets.AWS_REGION }}
-      #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform apply -auto-approve
+      run: terraform -chdir=./production apply -auto-approve
+      
+  terratest:
+    name: 'Terratest'
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+    
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_wrapper: false ## setting it false because it gives terratest assertion, problem
+  
+
+    - name: Terraform terratest
+      if: github.event_name == 'pull_request'
+      uses: actions/setup-go@v3
+      
+  # testing if the resources are properly tagged
+    - name: Infra Testing
+      if: github.event_name == 'pull_request'
+      id: terratest 
+      run: |
+        go mod init github.com/Bash-mocart/terratest
+        go mod tidy -go=1.16 && go mod tidy -go=1.17
+        go test -v
+      
+    
+    
+    

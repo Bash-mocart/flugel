@@ -9,8 +9,24 @@
 
 ## Requirements
 * GoLang installed on your machine
+* AWS Credentials properly configured in your local machine
 
 ## Steps to run and test the automation (Terratest)
+
+I used Terraform Cloud Workspaces to store the Terraform state files, to run the automation test, you either need to create your own terraform cloud organization and workspace and subtitute in `staging/provider.tf` `production/provider.tf` where necessary. or delete the backend configuration block in `staging/provider.tf` `production/provider.tf` e.g following block
+```
+backend "remote" {
+    #          The name of your Terraform Cloud organization.
+    organization = "flugel-infra"
+    
+    #         # The name of the Terraform Cloud workspace to store Terraform state files in.
+    workspaces {
+      name = "flugel"
+    }
+  }
+}
+```
+Deleting above will allow terraform use your Local Machine to execute terraform commands and store its states.
 
 1. Clone the repo
 2. In your terminal, run `go mod init flugel` (flugel can be any name)
