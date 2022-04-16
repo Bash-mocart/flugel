@@ -219,7 +219,7 @@ name: 'Terraform'
 on: 
   push:
     branches:
-      - ec2 
+      - test 
   pull_request:
 
 jobs:
