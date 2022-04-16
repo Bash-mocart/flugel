@@ -30,7 +30,7 @@ Deleting above will allow terraform use your Local Machine to execute terraform 
 
 1. Clone the repo
 2. In your terminal, run `go mod init flugel` (flugel can be any name)
-3. Next, run `go mod tidy -go=1.16 && go mod tidy -go=1.17`
-3. Next, run `go test -v`
+3. Next, run ` go mod tidy -go=1.16 && go mod tidy -go=1.17`
+4. Next, run `go test -v`
 
 Check the logs for the test results
