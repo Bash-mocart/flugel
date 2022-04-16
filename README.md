@@ -13,7 +13,7 @@
 
 ## Steps to run and test the automation (Terratest)
 
-I used Terraform Cloud Workspaces to store the Terraform state files, to run the automation test, you either need to create your own terraform cloud organization and workspace and subtitute in `/production/provider.tf` `/staging/provider.tf`where necessary. or delete the following block
+I used Terraform Cloud Workspaces to store the Terraform state files, to run the automation test, you either need to create your own terraform cloud organization and workspace and subtitute in `provider.tf` where necessary. or delete the backend configuration block in `provider.tf` e.g following block
 ```
 backend "remote" {
     #          The name of your Terraform Cloud organization.
