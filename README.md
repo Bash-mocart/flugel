@@ -40,7 +40,7 @@ There are two branches, Main branch contains the EKS Cluster which is not needed
 
 ## Steps to run and test the automation (Terratest)
 
-I used Terraform Cloud Workspaces to store the Terraform state files, to run the automation test, you either need to create your own terraform cloud organization and workspace and subtitute in `/production/provider.tf` `/staging/provider.tf`where necessary. or delete the backend configuration block in `/production/provider.tf` `/staging/provider.tf`
+I used Terraform Cloud Workspaces to store the Terraform state files, to run the automation test, you either need to create your own terraform cloud organization and workspace and subtitute in `production/provider.tf` `staging/provider.tf`where necessary. or delete the backend configuration block in `production/provider.tf` `staging/provider.tf`
 ```
 backend "remote" {
     #          The name of your Terraform Cloud organization.
