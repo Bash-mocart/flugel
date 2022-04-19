@@ -36,7 +36,8 @@ There are two branches, Main branch contains the EKS Cluster which is not needed
 
 ## Requirements
 * GoLang installed on your machine
-* AWS Credentials are properly configured in your Local Machine 
+* TerraformCLI installed on your machine
+* AWS Credentials are properly configured in your Local Machine (Install AWSCLI and running `aws configure` to set up AWS Credebtials) 
 
 ## Steps to run and test the automation (Terratest)
 
@@ -51,7 +52,6 @@ backend "remote" {
       name = "flugel"
     }
   }
-}
 ```
 Deleting above will allow terraform use your Local Machine to execute terraform commands and store its states.
 
