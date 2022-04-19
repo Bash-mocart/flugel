@@ -10,7 +10,7 @@
 ## Requirements
 * GoLang installed on your machine
 * TerraformCLI installed on your machine
-* AWS Credentials are properly configured in your Local Machine (Install AWSCLI and running `aws configure` to set up AWS Credebtials) 
+* AWS Credentials are properly configured in your Local Machine (Install AWSCLI and running `aws configure` to set up AWS Credentials) 
 
 ## Steps to run and test the automation (Terratest)
 
